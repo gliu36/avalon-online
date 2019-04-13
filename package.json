@@ -1,30 +1,22 @@
 {
   "name": "avalon-online",
-  "version": "0.1.0",
-  "private": true,
-  "homepage": "https://gliu36.github.io/avalon-online/",
-  "dependencies": {
-    "gh-pages": "^2.0.1",
-    "node-sass": "^4.11.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-scripts": "2.1.8"
-  },
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "eject": "react-scripts eject"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gliu36/avalon-online.git"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gliu36/avalon-online/issues"
+  },
+  "homepage": "https://github.com/gliu36/avalon-online#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
 }
