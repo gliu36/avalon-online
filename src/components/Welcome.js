@@ -7,7 +7,8 @@ class App extends Component {
     super(props);
 
     this.state = {
-
+      data: null,
+      enterRoomVisable: false
     }
   }
 
@@ -24,21 +25,23 @@ class App extends Component {
   
 
   newGame = () => {
-
+    
   }
 
   joinGame = () => {
-    
+    this.setState({ enterRoomVisable: true });
   }
 
 
   render() {
+    
     return (
       <div className="App">
         <p>Avalon Online</p>
         <div>
-          <button className="standard">New Game</button>
-          <button className="standard">Join Game</button>
+          <button className="standard" onClick={this.newGame}>New Game</button>
+          <button className="standard"onClick={this.joinGame}>Join Game</button>
+          {this.state.enterRoomVisable && <input className="joinRoom" type="text"></input>}
         </div>
       </div>
       
