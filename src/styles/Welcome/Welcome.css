@@ -1,0 +1,21 @@
+body {
+  background-color: lightgray;
+}
+
+p {
+  font-size: 72px;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  position: fixed;
+  /* or absolute */
+  top: 25%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.standard {
+  position: relative;
+  top: 12%;
+  left: 25%;
+}
+/*# sourceMappingURL=Welcome.css.map */
