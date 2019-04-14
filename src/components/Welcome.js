@@ -45,7 +45,7 @@ class App extends Component {
         console.log(data);
       });
       this.setState({ username: username }, this.goToLobby);
-      console.log(`User Name is: ${username}`)
+      //console.log(`User Name is: ${username}`)
     }
   }
 
