@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import '../styles/Lobby/Lobby.css';
+import io from 'socket.io-client'
+
 
 class Lobby extends Component {
 
@@ -21,6 +23,14 @@ class Lobby extends Component {
             return {
                 list: prevState.list.concat(newItem)
             }
+        }, this.handleSocket);
+    }
+
+    handleSocket = () => {
+        var socket = io.connect("http://localhost:8080");
+        this.props.newGame ? socket.emit('room', "gerry", 1) : socket.emit('room', "gerry", 0);
+        socket.on('message', function(data) {
+          console.log(data);
         });
     }
 

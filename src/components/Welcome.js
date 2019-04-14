@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import '../styles/Welcome/Welcome.scss';
-import io from 'socket.io-client'
 import Lobby from './Lobby'
 //import io from 'socket.io-client'
 
@@ -16,7 +15,8 @@ class App extends Component {
       enterLobbyVisable: false,
       lobby: false,
       username: "",
-      lobby_id: "random_value"
+      lobby_id: "random_value",
+      newGame: true
     }
   }
 
@@ -44,12 +44,7 @@ class App extends Component {
 
     console.log(`User Name is: ${username}; LobbyID is: ${lobby_id}`);
 
-    var socket = io.connect("http://localhost:8080");
-      socket.emit('room', "gerry", 1);
-      socket.on('message', function(data) {
-        console.log(data);
-      });
-      this.setState({ username: username }, this.goToLobby);
+      this.setState({ username: username, newGame: true }, this.goToLobby);
       //console.log(`User Name is: ${username}`)
   }
 
@@ -61,13 +56,9 @@ class App extends Component {
 
     console.log(`User Name is: ${username}; LobbyID is: ${lobby_id}`);
 
-    var socket = io.connect("http://localhost:8080");
-      socket.emit('room', "gerry", 0);
-      socket.on('message', function(data) {
-        console.log(data);
-      });
 
-      this.setState({ username: username, lobby_id: lobby_id }, this.goToLobby);
+
+      this.setState({ username: username, lobby_id: lobby_id, newGame: false }, this.goToLobby);
     
   }
 
@@ -106,7 +97,7 @@ class App extends Component {
         {this.state.lobby &&
         // Lobby Here
           <div className = "lobby">
-            <Lobby username={this.state.username}/>
+            <Lobby newGame={this.state.newGame} username={this.state.username}/>
           </div>
         }
         
