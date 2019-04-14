@@ -4,12 +4,13 @@
   "private": true,
   "homepage": "https://gliu36.github.io/avalon-online/",
   "dependencies": {
+    "express": "^4.16.4",
     "gh-pages": "^2.0.1",
     "node-sass": "^4.11.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "2.1.8",
-    "express": "^4.16.4"
+    "socket.io": "^2.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -19,8 +20,7 @@
     "deploy": "gh-pages -d build",
     "eject": "react-scripts eject"
   },
-    "proxy": "http://127.0.0.1:5000/",
-
+  "proxy": "http://127.0.0.1:5000/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gliu36/avalon-online.git"
@@ -30,7 +30,6 @@
   "bugs": {
     "url": "https://github.com/gliu36/avalon-online/issues"
   },
-  
   "eslintConfig": {
     "extends": "react-app"
   },
