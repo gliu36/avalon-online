@@ -12,7 +12,8 @@ var io = require('socket.io')(server);
  server.listen(8080);
 
 
-let games = [];
+let games = new Map();
+games.set('gerry', []);
 
 // console.log server is running
 app.listen(port, () => console.log(`Listening on port ${port}`));
@@ -23,18 +24,21 @@ app.get('/express_backend', function(req, res) {
 
 // joining the room
 io.sockets.on("connection", function(socket) { 
-    socket.on('room', function(room, id) {
+    socket.on('room', function(room, name, id) {
        // console.log("it gets here");
     if (id === 1) {                           // the user created a new game
         socket.join(room);
-        games.push(room);
-        io.sockets.in(room).emit("message", "A new player has joined the game!");
+        //games.push(room);
+        var hold = games.get(room).concat(name);
+        games.set(room, hold);
+        io.in(room).emit("message", hold);
+        //io.in(room).emit("welcome", "fuck");
 
        } else if (id == 0) {
-        if (games.includes(room)) {
+        if (games.has(room)) {
             socket.join(room);
-            socket.emit("welcome", "A player has joined the game!");
-            io.sockets.in(room).emit("message", "A new player has joined the game!");
+            //io.in(room).emit("welcome", "fuck all!");
+            io.in(room).emit("message", "fuck u");
 
         } else {
            io.sockets.in(room).emit("message", "The game does not exist!");
