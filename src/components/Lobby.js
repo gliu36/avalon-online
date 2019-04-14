@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Avalon from './Game/Avalon.js';
 import '../styles/Lobby/Lobby.css';
 import io from 'socket.io-client'
 import { stat } from 'fs';
@@ -10,7 +11,8 @@ class Lobby extends Component {
         super(props);
 
         this.state = {
-            list: []
+            list: [],
+            gameScreen: false
         };
 
         this.socket = io.connect("http://localhost:8080");
@@ -44,9 +46,13 @@ class Lobby extends Component {
     createPlayer = (item) => {
         return <li key={item.key}> {item.text} </li>
     }
+     
 
-    render() {        
+    goToGameScreen = () => {
+        this.setState({ gameScreen: true })
+    }
 
+    render() {
         
         var test = this.state.list.map((item,i) => <li key={i}>{item}</li>);
         // var listItems = this.state.list.map((item) =>
@@ -56,10 +62,21 @@ class Lobby extends Component {
 
         return (
             <div>
-                <h1 className="RoomTitle"> Room number #</h1>
-                <p>Current Player in Lobby</p>
-                <ol className="playerList">{test}</ol>
-                
+                {!this.state.gameScreen && <div className="Lobby">
+                    <h1 className="RoomTitle"> Room number #</h1>
+                    <p>Current Player in Lobby</p>
+                    <ol className="playerList">{test}</ol>
+
+                    <button className="btn2" onClick={this.props.backToMenu}>Quit</button>
+                    <button className="btn2" onClick={this.goToGameScreen}>Start Game</button>
+
+                    
+                </div>}
+                {this.state.gameScreen &&
+                        <div className = "lobby">
+                            <Avalon players={this.state.list}/>
+                        </div>
+                    }
             </div>
         )
     }

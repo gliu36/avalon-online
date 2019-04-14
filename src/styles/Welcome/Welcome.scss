@@ -15,12 +15,26 @@ body {
         font-family: "Comic Sans MS", cursive, sans-serif;
         
     }
+
+    .joinRoom {
+        padding: 4px;
+        font-size: 16px;
+        width: 380px;
+        font-family: sans-serif;
+    }
+
+    .submit {
+        padding: 4px;
+        font-size: 16px;
+        font-family: sans-serif;
+    }
     
     .btn-container {
         margin-top: 10px;
 
         .btn {
-            margin-left: 25px;    
+            margin-left: 50px;
+            margin-top: 25px;    
             background-color: transparent;
             border-radius: 4px;
             color: rgb(24, 24, 24);

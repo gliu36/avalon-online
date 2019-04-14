@@ -87,7 +87,7 @@ class App extends Component {
   }
 
   backToMenu = () => {
-    this.setState({ enterNewNameVisable: false, enterOldNameVisable: false, enterLobbyVisable: false });
+    this.setState({ enterNewNameVisable: false, enterOldNameVisable: false, enterLobbyVisable: false, lobby: false });
   }
 
   goToLobby = () => {
@@ -106,7 +106,9 @@ class App extends Component {
         {this.state.lobby &&
         // Lobby Here
           <div className = "lobby">
-            <Lobby username={this.state.username}/>
+            <Lobby username={this.state.username}
+                  backToMenu={this.backToMenu}
+            />
           </div>
         }
         
@@ -121,7 +123,7 @@ class App extends Component {
               <form id="newgame" onSubmit={this.handleNewGame} autoComplete="off">
                 <p>Enter a Name:</p>
                 <input className="joinRoom" type="text" name="username" onChange={this.handleName}></input>
-                <button type="submit">Submit</button>
+                <button className="submit" type="submit">Submit</button>
               </form>
               <button className="btn" onClick={this.backToMenu}>Back</button>
               <button className="btn" onClick={this.goToLobby}>Go to Lobby</button>
@@ -134,7 +136,7 @@ class App extends Component {
                 <input className="joinRoom" type="text" name="username" onChange={this.handleName}></input>
                 <p>Enter Lobby ID:</p>
                 <input className="joinRoom" type="text" name="lobby_id" onChange={this.handleLobby}></input>
-                <button type="submit">Submit</button>
+                <button className="submit" type="submit">Submit</button>
               </form>
               <button className="btn" onClick={this.backToMenu}>Back</button>
             </div>}
