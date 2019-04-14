@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import '../styles/Welcome/Welcome.css';
+import { Button, ButtonToolbar } from 'react-bootstrap';
+import '../styles/Welcome/Welcome.scss';
 
 class App extends Component {
 
@@ -7,7 +8,9 @@ class App extends Component {
     super(props);
 
     this.state = {
-
+      data: null,
+      enterRoomVisable: false,
+      enterLobbyVisable: false
     }
   }
 
@@ -21,25 +24,61 @@ class App extends Component {
     const response = await fetch('/express_backend');
     const body = await response.json();
   }
+
+  handleName = (e) => {
+    if (e.key === 'Enter') {
+      let username = e.target.value;
+      console.log(`User Name is: ${username}`)
+    }
+  }
   
 
   newGame = () => {
-
+    this.setState({ enterRoomVisable: true });
   }
 
   joinGame = () => {
-    
+    this.setState({
+      enterRoomVisable: true,
+      enterLobbyVisable: true
+    });
+  }
+
+  backToMenu = () => {
+    this.setState({ enterRoomVisable: false, enterLobbyVisable: false });
   }
 
 
   render() {
+    let showName= this.state.enterRoomVisable;
+    let showLobby = this.state.enterLobbyVisable;
     return (
       <div className="App">
-        <p>Avalon Online</p>
-        <div>
-          <button className="standard">New Game</button>
-          <button className="standard">Join Game</button>
+        <p className="title">Avalon Online</p>
+        <div className="btn-container">
+          <div>
+            {!showName && <button className="btn" onClick={this.newGame}>New Game</button>}
+            {!showName && <button className="btn" onClick={this.joinGame}>Join Game</button>}
+            
+            {showName && <div>
+              <div>
+                <p>Enter a Name:</p>
+                <input className="joinRoom" type="text" onKeyDown={this.handleName}></input>
+              </div>
+              {showLobby && <div>
+                <p>Enter Lobby ID:</p>
+                <input className="joinRoom" type="text" onKeyDown={this.handleName}></input>
+              </div>}
+              <button className="btn" onClick={this.backToMenu}>Back</button>
+            </div>}
+          </div>
         </div>
+        <link
+          rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous"
+        />
       </div>
       
     );

@@ -14,8 +14,12 @@ p {
 }
 
 .standard {
-  position: relative;
-  top: 12%;
-  left: 25%;
+  color: #FFF;
+  display: inline-block;
+  font-size: 15px;
+  line-height: 15px;
+  margin-bottom: 24px;
+  padding: 12px 24px;
+  text-align: center;
 }
 /*# sourceMappingURL=Welcome.css.map */
