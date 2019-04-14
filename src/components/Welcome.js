@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../styles/Welcome/Welcome.scss';
 import io from 'socket.io-client'
 import Lobby from './Lobby'
+import { Socket } from 'dgram';
 //import io from 'socket.io-client'
 
 class App extends Component {
@@ -16,7 +17,8 @@ class App extends Component {
       enterLobbyVisable: false,
       lobby: false,
       username: "",
-      lobby_id: "random_value"
+      lobby_id: "random_value",
+      socket: null
     }
   }
 
@@ -44,11 +46,11 @@ class App extends Component {
 
     console.log(`User Name is: ${username}; LobbyID is: ${lobby_id}`);
 
-    var socket = io.connect("http://localhost:8080");
+    let socket = io.connect("http://localhost:8080");
       socket.emit('room', "gerry", 0);
       socket.on('message', function(data) {
         console.log(data);
-      }, this.goToLobby);
+      }, this.setState({ socket: socket }, this.goToLobby));
     
   }
 
