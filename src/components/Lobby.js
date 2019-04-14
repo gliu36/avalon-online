@@ -16,8 +16,6 @@ class Lobby extends Component {
         };
 
         this.socket = io.connect("http://localhost:8080");
-
-        
     }
 
     updateCodeFromSockets = (payload) => {
@@ -57,8 +55,6 @@ class Lobby extends Component {
         var test = this.state.list.map((item,i) => <li key={i}>{item}</li>);
         // var listItems = this.state.list.map((item) =>
         // {   return <li key={item.key}> {item.text} </li>   });
-      
-        
 
         return (
             <div>
