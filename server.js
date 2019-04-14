@@ -9,7 +9,7 @@ var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
-server.listen(2500);
+server.listen(8080);
 
 
 let games = [];

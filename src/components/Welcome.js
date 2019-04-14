@@ -33,7 +33,7 @@ class App extends Component {
     if (e.key === 'Enter') {
       let username = e.target.value;
       console.log(`User Name is: ${username}`);
-      var socket = io.connect("http://localhost");
+      var socket = io.connect("http://localhost:8080");
       socket.emit('room', "gerry");
     }
   }
