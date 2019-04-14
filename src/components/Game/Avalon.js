@@ -1,22 +1,12 @@
 import React, { Component } from 'react'
 
-/* 
-Player Object: {
-    name: "Annie",
-    
-
-
-}
-
-*/
-
 export default class Avalon extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            players: [],
+            players: this.props.list,
             globalTurnCounter: 0
         };
     }
@@ -28,7 +18,7 @@ export default class Avalon extends Component {
     render() {
         return (
             <div>
-
+                Game
             </div>
         )
     }

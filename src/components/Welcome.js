@@ -87,7 +87,7 @@ class App extends Component {
   }
 
   backToMenu = () => {
-    this.setState({ enterNewNameVisable: false, enterOldNameVisable: false, enterLobbyVisable: false });
+    this.setState({ enterNewNameVisable: false, enterOldNameVisable: false, enterLobbyVisable: false, lobby: false });
   }
 
   goToLobby = () => {
@@ -106,7 +106,9 @@ class App extends Component {
         {this.state.lobby &&
         // Lobby Here
           <div className = "lobby">
-            <Lobby username={this.state.username}/>
+            <Lobby username={this.state.username}
+                  backToMenu={this.backToMenu}
+            />
           </div>
         }
         

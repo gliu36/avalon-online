@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Avalon from './Game/Avalon.js';
 import '../styles/Lobby/Lobby.css';
 
 class Lobby extends Component {
@@ -7,7 +8,8 @@ class Lobby extends Component {
         super(props);
 
         this.state = {
-            list: []
+            list: [],
+            gameScreen: false
         };
 
     }
@@ -28,14 +30,30 @@ class Lobby extends Component {
         return <li key={item.key}> {item.text} </li>
     }
 
+    goToGameScreen = () => {
+        this.setState({ gameScreen: true })
+    }
+
     render() {
         var listItems = this.state.list.map(this.createPlayer);
         
         return (
             <div>
-                <h1 className="RoomTitle"> Room number #</h1>
-                <p>Current Player in Lobby</p>
-                <ol className="playerList">{listItems}</ol>
+                {!this.state.gameScreen && <div className="Lobby">
+                    <h1 className="RoomTitle"> Room number #</h1>
+                    <p>Current Player in Lobby</p>
+                    <ol className="playerList">{listItems}</ol>
+
+                    <button className="btn2" onClick={this.props.backToMenu}>Quit</button>
+                    <button className="btn2" onClick={this.goToGameScreen}>Start Game</button>
+
+                    
+                </div>}
+                {this.state.gameScreen &&
+                        <div className = "lobby">
+                            <Avalon players={this.state.list}/>
+                        </div>
+                    }
             </div>
         )
     }
