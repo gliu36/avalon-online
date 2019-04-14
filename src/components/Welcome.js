@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Button, ButtonToolbar } from 'react-bootstrap';
 import '../styles/Welcome/Welcome.scss';
 //import io from 'socket.io-client'
 
@@ -17,17 +16,17 @@ class App extends Component {
 
   componentDidMount() {
    // const socket = io("http://localhost:5000");
-      this.callBackendAPI()
-      .then(res => this.setState({data: res.express }))
-      .catch(err => console.log(err));
+      // this.callBackendAPI()
+      // .then(res => this.setState({data: res.express }))
+      // .catch(err => console.log(err));
       
 
   }
 
-  callBackendAPI =  async() => {
-    const response = await fetch('/express_backend');
-    const body = await response.json();
-  }
+  // callBackendAPI =  async() => {
+  //   const response = await fetch('/express_backend');
+  //   const body = await response.json();
+  // }
 
   handleName = (e) => {
     if (e.key === 'Enter') {
@@ -81,7 +80,7 @@ class App extends Component {
           rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-          crossorigin="anonymous"
+          crossOrigin="anonymous"
         />
       </div>
       

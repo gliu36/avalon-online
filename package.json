@@ -4,7 +4,6 @@
   "private": true,
   "homepage": "https://gliu36.github.io/avalon-online/",
   "proxy": "http://127.0.0.1:5000/",
-
   "dependencies": {
     "express": "^4.16.4",
     "gh-pages": "^2.0.1",
@@ -23,7 +22,6 @@
     "deploy": "gh-pages -d build",
     "eject": "react-scripts eject"
   },
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gliu36/avalon-online.git"
