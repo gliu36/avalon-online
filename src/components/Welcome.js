@@ -16,7 +16,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    
+
   }
    // const socket = io("http://localhost:5000");
     /*  this.callBackendAPI()
@@ -86,11 +86,11 @@ class App extends Component {
             {showName && <div>
               <div>
                 <p>Enter a Name:</p>
-                <input className="joinRoom" type="text" onKeyDown={this.handleOldGameName}></input>
+                <input className="joinRoom" type="text" onKeyDown={this.handleNewGameName}></input>
               </div>
               {showLobby && <div>
                 <p>Enter Lobby ID:</p>
-                <input className="joinRoom" type="text" onKeyDown={this.handleNewGameName}></input>
+                <input className="joinRoom" type="text" onKeyDown={this.handleOldGameName}></input>
               </div>}
               <button className="btn" onClick={this.backToMenu}>Back</button>
             </div>}

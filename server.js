@@ -24,17 +24,17 @@ app.get('/express_backend', function(req, res) {
 // joining the room
 io.sockets.on("connection", function(socket) { 
     socket.on('room', function(room, id) {
-        io.sockets.in(room).emit("message", "A new player has joined the game!");
        // console.log("it gets here");
-    if (id == 1) {                           // the user created a new game
+    if (id === 1) {                           // the user created a new game
         socket.join(room);
         games.push(room);
         io.sockets.in(room).emit("message", "A new player has joined the game!");
 
-       } else {
+       } else if (id == 0) {
         if (games.includes(room)) {
             socket.join(room);
             socket.emit("welcome", "A player has joined the game!");
+            io.sockets.in(room).emit("message", "A new player has joined the game!");
 
         } else {
            io.sockets.in(room).emit("message", "The game does not exist!");
