@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Button, ButtonToolbar } from 'react-bootstrap';
 import '../styles/Welcome/Welcome.scss';
+import Avalon from './Game/Avalon.js'
 import io from 'socket.io-client'
 
 class App extends Component {
@@ -61,6 +61,7 @@ class App extends Component {
     let showLobby = this.state.enterLobbyVisable;
     return (
       <div className="App">
+        <Avalon />
         <p className="title">Avalon Online</p>
         <div className="btn-container">
           <div>
@@ -80,12 +81,6 @@ class App extends Component {
             </div>}
           </div>
         </div>
-        <link
-          rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-          crossOrigin="anonymous"
-        />
       </div>
       
     );
