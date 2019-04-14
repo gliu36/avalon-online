@@ -15,7 +15,8 @@ class App extends Component {
       enterOldNameVisable: false,
       enterLobbyVisable: false,
       lobby: false,
-      username: ''
+      username: "",
+      lobby_id: "random_value"
     }
   }
 
@@ -35,12 +36,16 @@ class App extends Component {
     const body = await response.json();
   } */
 
-  handleNewGameName = (e) => {
-    if (e.key === 'Enter') {
-      let username = e.target.value;
-      console.log(`User Name is: ${username}`);
-      var socket = io.connect("http://localhost:8080");
-      socket.emit('room', "gerry", 1);
+  handleNewGame = (e) => {
+    e.preventDefault();
+
+    let username = this.state.username;  // This is form username
+    let lobby_id = "random";  // This is form lobby id
+
+    console.log(`User Name is: ${username}; LobbyID is: ${lobby_id}`);
+
+    var socket = io.connect("http://localhost:8080");
+      socket.emit('room', "gerry", 0);
       socket.on('message', function(data) {
         console.log(data);
       });
@@ -49,17 +54,24 @@ class App extends Component {
     }
   }
 
-  handleOldGameName = (e) => {
-    if (e.key === 'Enter') {
-      let username = e.target.value;
-      console.log(`User Name is: ${username}`);
-      var socket = io.connect("http://localhost:8080");
+  handleOldGame = (e) => {
+    e.preventDefault();
+
+    let username = this.state.username;  // This is form username
+    let lobby_id = this.state.lobby_id;  // This is form lobby id
+
+    console.log(`User Name is: ${username}; LobbyID is: ${lobby_id}`);
+
+    var socket = io.connect("http://localhost:8080");
       socket.emit('room', "gerry", 0);
       socket.on('message', function(data) {
         console.log(data);
-      });
-    }
+      }, this.goToLobby);
+    
   }
+
+  handleName = (e) => {this.setState({username: e.target.value})}
+  handleLobby = (e) => {this.setState({lobby_id: e.target.value});}
 
 
   newGame = () => {
@@ -86,7 +98,7 @@ class App extends Component {
   render() {
     let showNewName = this.state.enterNewNameVisable;
     let showOldName = this.state.enterOldNameVisable;
-    let showLobby = this.state.enterLobbyVisable;
+
     return (
       <div className="App">
 
@@ -103,35 +115,30 @@ class App extends Component {
             {!showNewName && !showOldName && <button className="btn" onClick={this.newGame}>New Game</button>}
             {!showNewName && !showOldName && <button className="btn" onClick={this.joinGame}>Join Game</button>}
             
-            {showNewName && <div>
-              <div>
+            {showNewName && 
+            <div>
+              <form id="newgame" onSubmit={this.handleNewGame} autoComplete="off">
                 <p>Enter a Name:</p>
-                <input className="joinRoom" type="text" onKeyDown={this.handleNewGameName}></input>
-                <button className="joinRoom">Ok</button>
-              </div>
-              
+                <input className="joinRoom" type="text" name="username" onChange={this.handleName}></input>
+                <button type="submit">Submit</button>
+              </form>
               <button className="btn" onClick={this.backToMenu}>Back</button>
               <button className="btn" onClick={this.goToLobby}>Go to Lobby</button>
             </div>}
 
-            {showOldName && <div>
-              <div>
+            {showOldName && 
+            <div>
+              <form id="oldgame" onSubmit={this.handleOldGame} autoComplete="off">
                 <p>Enter a Name:</p>
-                <input className="joinRoom" type="text" onKeyDown={this.handleOldGameName}></input>
-                <button className="joinRoom">Ok</button>
-              </div>
+                <input className="joinRoom" type="text" name="username" onChange={this.handleName}></input>
                 <p>Enter Lobby ID:</p>
-                <input className="joinRoom" type="text" onKeyDown={this.handleOldGameName}></input>
+                <input className="joinRoom" type="text" name="lobby_id" onChange={this.handleLobby}></input>
+                <button type="submit">Submit</button>
+              </form>
               <button className="btn" onClick={this.backToMenu}>Back</button>
-              </div>}
+            </div>}
           </div>
         </div>}
-        <link
-          rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-          crossOrigin="anonymous"
-        />
       </div>
       
     );
