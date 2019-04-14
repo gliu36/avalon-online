@@ -1,9 +1,16 @@
-const express = require('express');
-const app = express();
-const server = require('http').Server(app);
-const io = require('socket.io')(server);
+//const express = require('express');
+//const app = express();
+//const server = require('http').Server(app);
+//const io = require('socket.io').listen(server);
 
 const port = 5000;
+
+var app = require('express')();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
+server.listen(2500);
+
 
 let games = [];
 
@@ -11,7 +18,7 @@ let games = [];
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
 app.get('/express_backend', function(req, res) {
-    res.send({express: 'YOUR BACKEND IS CONNECTED'});
+   res.send({express: 'YOUR BACKEND IS CONNECTED'});
 });
 
 // only for creating a new game

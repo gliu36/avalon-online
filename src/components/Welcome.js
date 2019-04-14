@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, ButtonToolbar } from 'react-bootstrap';
 import '../styles/Welcome/Welcome.scss';
-//import io from 'socket.io-client'
+import io from 'socket.io-client'
 
 class App extends Component {
 
@@ -32,9 +32,12 @@ class App extends Component {
   handleName = (e) => {
     if (e.key === 'Enter') {
       let username = e.target.value;
-      console.log(`User Name is: ${username}`)
+      console.log(`User Name is: ${username}`);
+      var socket = io.connect("http://localhost");
+      socket.emit('room', "gerry");
     }
   }
+
   
 
   newGame = () => {
