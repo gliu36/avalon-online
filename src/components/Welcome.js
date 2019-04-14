@@ -45,13 +45,12 @@ class App extends Component {
     console.log(`User Name is: ${username}; LobbyID is: ${lobby_id}`);
 
     var socket = io.connect("http://localhost:8080");
-      socket.emit('room', "gerry", 0);
+      socket.emit('room', "gerry", 1);
       socket.on('message', function(data) {
         console.log(data);
       });
       this.setState({ username: username }, this.goToLobby);
       //console.log(`User Name is: ${username}`)
-    }
   }
 
   handleOldGame = (e) => {
@@ -66,7 +65,9 @@ class App extends Component {
       socket.emit('room', "gerry", 0);
       socket.on('message', function(data) {
         console.log(data);
-      }, this.goToLobby);
+      });
+
+      this.setState({ username: username, lobby_id: lobby_id }, this.goToLobby);
     
   }
 
