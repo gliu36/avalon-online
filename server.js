@@ -3,13 +3,13 @@
 //const server = require('http').Server(app);
 //const io = require('socket.io').listen(server);
 
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
- server.listen(8080);
+ server.listen(process.env.PORT || 8080);
 
 
 let games = new Map();
