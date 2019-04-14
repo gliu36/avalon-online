@@ -2,8 +2,13 @@
     font-size: 30px;
 }
 
+p {
+    font-size: 15px;
+    font-family: sans-serif;
+}
 
 ol {
     padding-top: 5px;
     padding-left: 15px;
+    font-family: sans-serif;
 }
