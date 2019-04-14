@@ -16,8 +16,10 @@ class App extends Component {
   }
 
   componentDidMount() {
+    
+  }
    // const socket = io("http://localhost:5000");
-      this.callBackendAPI()
+    /*  this.callBackendAPI()
       .then(res => this.setState({data: res.express }))
       .catch(err => console.log(err));
       
@@ -27,18 +29,32 @@ class App extends Component {
   callBackendAPI =  async() => {
     const response = await fetch('/express_backend');
     const body = await response.json();
-  }
+  } */
 
-  handleName = (e) => {
+  handleNewGameName = (e) => {
     if (e.key === 'Enter') {
       let username = e.target.value;
       console.log(`User Name is: ${username}`);
       var socket = io.connect("http://localhost:8080");
-      socket.emit('room', "gerry");
+      socket.emit('room', "gerry", 1);
+      socket.on('message', function(data) {
+        console.log(data);
+      });
     }
   }
 
-  
+  handleOldGameName = (e) => {
+    if (e.key === 'Enter') {
+      let username = e.target.value;
+      console.log(`User Name is: ${username}`);
+      var socket = io.connect("http://localhost:8080");
+      socket.emit('room', "gerry", 0);
+      socket.on('message', function(data) {
+        console.log(data);
+      });
+    }
+  }
+
 
   newGame = () => {
     this.setState({ enterRoomVisable: true });
@@ -70,11 +86,11 @@ class App extends Component {
             {showName && <div>
               <div>
                 <p>Enter a Name:</p>
-                <input className="joinRoom" type="text" onKeyDown={this.handleName}></input>
+                <input className="joinRoom" type="text" onKeyDown={this.handleOldGameName}></input>
               </div>
               {showLobby && <div>
                 <p>Enter Lobby ID:</p>
-                <input className="joinRoom" type="text" onKeyDown={this.handleName}></input>
+                <input className="joinRoom" type="text" onKeyDown={this.handleNewGameName}></input>
               </div>}
               <button className="btn" onClick={this.backToMenu}>Back</button>
             </div>}
