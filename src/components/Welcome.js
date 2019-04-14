@@ -12,7 +12,7 @@ class App extends Component {
       data: null,
       enterRoomVisable: false,
       enterLobbyVisable: false,
-      lobby: false,
+      lobby: true,
       username: ''
     }
   }

@@ -22,7 +22,7 @@ class Lobby extends Component {
             };
             this.setState((prevState) => {
                 return {
-                    items: prevState.items.concat(newItem)
+                    list: prevState.list.concat(newItem)
                 }
             });
 
@@ -31,7 +31,7 @@ class Lobby extends Component {
 
         this.props.username = "";
         
-        console.log(this.state.items);
+        console.log(this.state.list);
 
         e.preventDefault();
     }
@@ -42,12 +42,12 @@ class Lobby extends Component {
 
     render() {
         var listItems = this.state.list.map(this.createPlayer);
-        console.log(this.state.items);
-
+        console.log(this.state.list);
+        
         return (
             <div>
-                <p className="RoomTitle"> Room number #</p>
-                <ol className="playerList">
+                <h1 className="RoomTitle"> Room number #</h1>
+                <ol className="playerList"> Player List
                     {listItems}
                 </ol>
                 </div>
