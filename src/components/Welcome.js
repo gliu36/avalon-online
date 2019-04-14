@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import '../styles/Welcome/Welcome.scss';
 import io from 'socket.io-client'
+import Lobby from './Lobby'
+//import io from 'socket.io-client'
 
 class App extends Component {
 
@@ -11,7 +13,9 @@ class App extends Component {
       data: null,
       enterNewNameVisable: false,
       enterOldNameVisable: false,
-      enterLobbyVisable: false
+      enterLobbyVisable: false,
+      lobby: false,
+      username: ''
     }
   }
 
@@ -40,6 +44,8 @@ class App extends Component {
       socket.on('message', function(data) {
         console.log(data);
       });
+      this.setState({ username: username }, this.goToLobby);
+      console.log(`User Name is: ${username}`)
     }
   }
 
@@ -71,6 +77,11 @@ class App extends Component {
     this.setState({ enterNewNameVisable: false, enterOldNameVisable: false, enterLobbyVisable: false });
   }
 
+  goToLobby = () => {
+    this.setState({ lobby: true });
+  }
+
+
 
   render() {
     let showNewName = this.state.enterNewNameVisable;
@@ -78,8 +89,16 @@ class App extends Component {
     let showLobby = this.state.enterLobbyVisable;
     return (
       <div className="App">
+
+        {this.state.lobby &&
+        // Lobby Here
+          <div className = "lobby">
+            <Lobby username={this.state.username}/>
+          </div>
+        }
+        
+        {!this.state.lobby && <div className="btn-container">
         <p className="title">Avalon Online</p>
-        <div className="btn-container">
           <div>
             {!showNewName && !showOldName && <button className="btn" onClick={this.newGame}>New Game</button>}
             {!showNewName && !showOldName && <button className="btn" onClick={this.joinGame}>Join Game</button>}
@@ -92,6 +111,7 @@ class App extends Component {
               </div>
               
               <button className="btn" onClick={this.backToMenu}>Back</button>
+              <button className="btn" onClick={this.goToLobby}>Go to Lobby</button>
             </div>}
 
             {showOldName && <div>
@@ -105,7 +125,13 @@ class App extends Component {
               <button className="btn" onClick={this.backToMenu}>Back</button>
               </div>}
           </div>
-        </div>
+        </div>}
+        <link
+          rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossOrigin="anonymous"
+        />
       </div>
       
     );
