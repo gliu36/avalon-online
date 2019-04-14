@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Button, ButtonToolbar } from 'react-bootstrap';
 import '../styles/Welcome/Welcome.scss';
 import io from 'socket.io-client'
 
@@ -10,7 +9,8 @@ class App extends Component {
     
     this.state = {
       data: null,
-      enterRoomVisable: false,
+      enterNewNameVisable: false,
+      enterOldNameVisable: false,
       enterLobbyVisable: false
     }
   }
@@ -57,51 +57,56 @@ class App extends Component {
 
 
   newGame = () => {
-    this.setState({ enterRoomVisable: true });
+    this.setState({ enterNewNameVisable: true, enterLobbyVisable: false});
   }
 
   joinGame = () => {
     this.setState({
-      enterRoomVisable: true,
+      enterOldNameVisable: true,
       enterLobbyVisable: true
     });
   }
 
   backToMenu = () => {
-    this.setState({ enterRoomVisable: false, enterLobbyVisable: false });
+    this.setState({ enterNewNameVisable: false, enterOldNameVisable: false, enterLobbyVisable: false });
   }
 
 
   render() {
-    let showName= this.state.enterRoomVisable;
+    let showNewName = this.state.enterNewNameVisable;
+    let showOldName = this.state.enterOldNameVisable;
     let showLobby = this.state.enterLobbyVisable;
     return (
       <div className="App">
         <p className="title">Avalon Online</p>
         <div className="btn-container">
           <div>
-            {!showName && <button className="btn" onClick={this.newGame}>New Game</button>}
-            {!showName && <button className="btn" onClick={this.joinGame}>Join Game</button>}
+            {!showNewName && !showOldName && <button className="btn" onClick={this.newGame}>New Game</button>}
+            {!showNewName && !showOldName && <button className="btn" onClick={this.joinGame}>Join Game</button>}
             
-            {showName && <div>
+            {showNewName && <div>
+              <div>
+                <p>Enter a Name:</p>
+                <input className="joinRoom" type="text" onKeyDown={this.handleNewGameName}></input>
+                <button className="joinRoom">Ok</button>
+              </div>
+              
+              <button className="btn" onClick={this.backToMenu}>Back</button>
+            </div>}
+
+            {showOldName && <div>
               <div>
                 <p>Enter a Name:</p>
                 <input className="joinRoom" type="text" onKeyDown={this.handleOldGameName}></input>
+                <button className="joinRoom">Ok</button>
               </div>
-              {showLobby && <div>
                 <p>Enter Lobby ID:</p>
-                <input className="joinRoom" type="text" onKeyDown={this.handleNewGameName}></input>
-              </div>}
+                <input className="joinRoom" type="text" onKeyDown={this.handleOldGameName}></input>
+
               <button className="btn" onClick={this.backToMenu}>Back</button>
-            </div>}
+              </div>}
           </div>
         </div>
-        <link
-          rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-          crossOrigin="anonymous"
-        />
       </div>
       
     );
