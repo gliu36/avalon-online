@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Button, ButtonToolbar } from 'react-bootstrap';
 import '../styles/Welcome/Welcome.scss';
+//import io from 'socket.io-client'
 
 class App extends Component {
 
   constructor(props) {
     super(props);
-
+    
     this.state = {
       data: null,
       enterRoomVisable: false,
@@ -15,9 +16,12 @@ class App extends Component {
   }
 
   componentDidMount() {
+   // const socket = io("http://localhost:5000");
       this.callBackendAPI()
       .then(res => this.setState({data: res.express }))
       .catch(err => console.log(err));
+      
+
   }
 
   callBackendAPI =  async() => {
