@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/avalon-online/precache-manifest.e0105896a5ad105a517b468b38982ae9.js"
+  "/avalon-online/precache-manifest.22e692c5cbd15f5020a0ef50d5359a31.js"
 );
 
 workbox.clientsClaim();

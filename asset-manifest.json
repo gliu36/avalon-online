@@ -1,14 +1,13 @@
 {
-  "main.css": "/avalon-online/static/css/main.bce47c13.chunk.css",
-  "main.js": "/avalon-online/static/js/main.a90028b9.chunk.js",
-  "main.js.map": "/avalon-online/static/js/main.a90028b9.chunk.js.map",
+  "main.css": "/avalon-online/static/css/main.9c4c9b49.chunk.css",
+  "main.js": "/avalon-online/static/js/main.de7334cc.chunk.js",
+  "main.js.map": "/avalon-online/static/js/main.de7334cc.chunk.js.map",
   "runtime~main.js": "/avalon-online/static/js/runtime~main.dd6cd104.js",
   "runtime~main.js.map": "/avalon-online/static/js/runtime~main.dd6cd104.js.map",
-  "static/js/2.6efc73d3.chunk.js": "/avalon-online/static/js/2.6efc73d3.chunk.js",
-  "static/js/2.6efc73d3.chunk.js.map": "/avalon-online/static/js/2.6efc73d3.chunk.js.map",
+  "static/js/2.88eb6255.chunk.js": "/avalon-online/static/js/2.88eb6255.chunk.js",
+  "static/js/2.88eb6255.chunk.js.map": "/avalon-online/static/js/2.88eb6255.chunk.js.map",
   "index.html": "/avalon-online/index.html",
-  "precache-manifest.e0105896a5ad105a517b468b38982ae9.js": "/avalon-online/precache-manifest.e0105896a5ad105a517b468b38982ae9.js",
+  "precache-manifest.22e692c5cbd15f5020a0ef50d5359a31.js": "/avalon-online/precache-manifest.22e692c5cbd15f5020a0ef50d5359a31.js",
   "service-worker.js": "/avalon-online/service-worker.js",
-  "static/css/main.bce47c13.chunk.css.map": "/avalon-online/static/css/main.bce47c13.chunk.css.map",
-  "static/media/logo.svg": "/avalon-online/static/media/logo.5d5d9eef.svg"
+  "static/css/main.9c4c9b49.chunk.css.map": "/avalon-online/static/css/main.9c4c9b49.chunk.css.map"
 }
