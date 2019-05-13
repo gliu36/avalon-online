@@ -4,7 +4,6 @@ import '../styles/Lobby/Lobby.css';
 import io from 'socket.io-client'
 import { stat } from 'fs';
 
-
 class Lobby extends Component {
 
     constructor(props) {
@@ -15,7 +14,7 @@ class Lobby extends Component {
             gameScreen: false
         };
 
-        this.socket = io.connect("http://localhost:8080");
+        this.socket = io.connect("http://localhost:7000");
 
         
     }

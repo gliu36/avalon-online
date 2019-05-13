@@ -9,6 +9,7 @@ export default class Avalon extends Component {
             players: this.props.list,
             globalTurnCounter: 0
         };
+ 
     }
 
     componentDidMount() {
