@@ -4,6 +4,8 @@ import '../styles/Lobby/Lobby.css';
 import io from 'socket.io-client'
 import { stat } from 'fs';
 
+let socket = io.connect("http://localhost:7000");
+
 class Lobby extends Component {
 
     constructor(props) {
@@ -14,9 +16,10 @@ class Lobby extends Component {
             gameScreen: false
         };
 
-        this.socket = io.connect("http://localhost:7000");
+        this.goToGameScreen = this.goToGameScreen.bind(this);
 
-        
+
+
     }
 
     updateCodeFromSockets = (payload) => {
@@ -35,9 +38,30 @@ class Lobby extends Component {
         //         list: prevState.list.push('newItem')
         //     }
         // });
-        this.socket.emit('room', 'gerry', this.props.username, 1);
-        this.socket.on('message', (payload) => {
+        socket.emit('room', 'gerry', this.props.username, 0);
+        socket.on('message', (payload, msg) => {
             this.updateCodeFromSockets(payload);
+            console.log(msg);
+        });
+
+
+
+
+        socket.on("sendToRoom", (msg) => {
+            console.log(msg);
+
+             this.setState((state) => ({
+                gameScreen: true
+             }));
+
+             
+             socket.on("giveEvilRoles", function() {
+                console.log("You are evil");
+             });
+             
+             socket.on("giveGoodRoles", function() {
+                console.log("You are good");
+             });
         });
 
     }
@@ -48,7 +72,8 @@ class Lobby extends Component {
      
 
     goToGameScreen = () => {
-        this.setState({ gameScreen: true })
+        socket.emit("goToGame", "data");
+        socket.emit("prepareGame", "");
     }
 
     render() {
@@ -60,18 +85,20 @@ class Lobby extends Component {
         
 
         return (
-            <div>
-                {!this.state.gameScreen && <div className="Lobby">
-                    <h1 className="RoomTitle"> Room number #</h1>
-                    <p>Current Player in Lobby</p>
-                    <ol className="playerList">{test}</ol>
+            <div id="mainDiv"> {
+                !this.state.gameScreen && <div className="Lobby">
+                    <h1 id="RoomTitle"> Room number #</h1>
+                    <p id="test">Current Player in Lobby</p>
+                    <div id="playerList">{test}</div>
 
                     <button className="btn2" onClick={this.props.backToMenu}>Quit</button>
                     <button className="btn2" onClick={this.goToGameScreen}>Start Game</button>
 
                     
-                </div>}
-                {this.state.gameScreen &&
+                </div>
+            }
+                {
+                    this.state.gameScreen &&
                         <div className = "lobby">
                             <Avalon players={this.state.list}/>
                         </div>
