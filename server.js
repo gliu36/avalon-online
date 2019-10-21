@@ -9,6 +9,8 @@ var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
+
+
  server.listen(7000);
 
  let Player  = class {
@@ -25,9 +27,14 @@ var io = require('socket.io')(server);
         this.playerSocket = playerSocket;
      }
 
+     setName(name) {
+         this.name = name;
+     }
+
       socketId() {
          return socketId;
      }
+
 
  }
 
@@ -36,7 +43,12 @@ let games = new Map();
 games.set('gerry', []);
 
 let rolePlayers = [];
-
+let evilPlayers = [];
+let playersName = [];
+let playersInRound;
+let evilVote4thRound;              // if there is a need for more than 1 evil vote                 
+let numEvil;
+let numPlayers;
 
 // console.log server is running
 app.listen(port, () => console.log(`Listening on port ${port}`));
@@ -58,14 +70,10 @@ io.sockets.on("connection", function(socket) {
         let persona = new Player(socket.id, 0);
         persona.setSocketId(socket);
         persona.setAffinity(0);
+        persona.setName(hold);
         rolePlayers.push(persona);
         io.in(room).emit("message", hold, "test");
 
-
-
-       // console.log(games);
-        
-        //io.in(room).emit("welcome", "fuck");
 
        } else if (id == 0) {
         if (games.has(room)) {
@@ -76,19 +84,17 @@ io.sockets.on("connection", function(socket) {
             let persona = new Player(socket.id, 0);
             persona.setSocketId(socket);
             persona.setAffinity(0);
+            persona.setName(hold);
             rolePlayers.push(persona);
             io.in(room).emit("message", hold, "test");
-    
-
         }
             //console.log(games.size);
-
         } else {
            io.sockets.in(room).emit("message", "The game does not exist!");
            return -1;
         }
 
-
+        playersName = hold;
        
     });
 
@@ -96,14 +102,10 @@ io.sockets.on("connection", function(socket) {
             io.in("gerry").emit("sendToRoom", "helo");
 
          });
-
     
      socket.on("prepareGame", function() {
         
-         let playersInRound;
-         let evilVote4thRound;              // if there is a need for more than 1 evil vote                 
-         let numEvil;
-         let numPlayers = games.get("gerry").length;
+        numPlayers = games.get("gerry").length;
 
 
          switch(numPlayers) {               // initializes data needed for amount of players
@@ -126,7 +128,7 @@ io.sockets.on("connection", function(socket) {
                 playersInRound = [3,4,4,5,5];
                 numEvil = 3;
                 evilVote4thRound = 2;
-                break;
+                break; 
             case 9:
                 playersInRound = [3,4,4,5,5];
                 numEvil = 3;
@@ -139,12 +141,9 @@ io.sockets.on("connection", function(socket) {
                 break;
             
                 default:            // if there are too many players or too little
-                return -1;
+                    break;          // exit
          }
 
-       // console.log(numEvil);
-
-       debugger;
        let everyVillianIsLemons;
          for (let x = 0; x < numEvil; x++) {
              everyVillianIsLemons = Math.floor((Math.random() * numPlayers));
@@ -154,24 +153,30 @@ io.sockets.on("connection", function(socket) {
                 continue;
             }
             rolePlayers[everyVillianIsLemons].setAffinity(1);
+            evilPlayers.push(playersName[everyVillianIsLemons]);
         }
 
-         
         for (let y = 0; y < numPlayers; y++) {
             if (rolePlayers[y].affinity === 1) {
-                rolePlayers[y].playerSocket.join("evil");
+                rolePlayers[y].playerSocket.join("evil");                
             } else {
                 rolePlayers[y].playerSocket.join("good");
             }
         }
 
-        io.to("evil").emit("giveEvilRoles", "");
+        io.to("evil").emit("giveEvilRoles", evilPlayers);
         io.to("good").emit("giveGoodRoles", "");
-         
 
-         
-        
+        let firstPartyLeader = Math.floor((Math.random() * numPlayers));
+        io.to(rolePlayers[firstPartyLeader].playerSocket).emit("getPartyLeader");
+
+
     });
+
+    socket.on("players", function() {
+        socket.emit("givePlayers", playersName);
+    });
+
 
 });
 
@@ -179,17 +184,5 @@ io.sockets.on("connection", function(socket) {
 
 
 
-
-// for joining a created game
-/*io.sockets.on("connection", function(socket) {
-    socket.on('room', function(room) {
-        if (games.includes(room)) {
-            socket.join(room);
-            socket.emit("welcome", "A player has joined the game!");
-        } else {
-            return socket.emit('err', "No game with that id exists");
-        }
-    });
-}); */
 
 

@@ -4,7 +4,10 @@ import '../styles/Lobby/Lobby.css';
 import io from 'socket.io-client'
 import { stat } from 'fs';
 
+
 let socket = io.connect("http://localhost:7000");
+
+export {socket};
 
 class Lobby extends Component {
 
@@ -45,23 +48,16 @@ class Lobby extends Component {
         });
 
 
-
-
         socket.on("sendToRoom", (msg) => {
             console.log(msg);
+
 
              this.setState((state) => ({
                 gameScreen: true
              }));
+             
 
-             
-             socket.on("giveEvilRoles", function() {
-                console.log("You are evil");
-             });
-             
-             socket.on("giveGoodRoles", function() {
-                console.log("You are good");
-             });
+
         });
 
     }
@@ -89,11 +85,11 @@ class Lobby extends Component {
                 !this.state.gameScreen && <div className="Lobby">
                     <h1 id="RoomTitle"> Room number #</h1>
                     <p id="test">Current Player in Lobby</p>
-                    <div id="playerList">{test}</div>
+                    <ol id="playerList">{test}</ol>
 
                     <button className="btn2" onClick={this.props.backToMenu}>Quit</button>
                     <button className="btn2" onClick={this.goToGameScreen}>Start Game</button>
-
+                        
                     
                 </div>
             }
