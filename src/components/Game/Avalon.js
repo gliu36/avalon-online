@@ -22,7 +22,6 @@ export default class Avalon extends Component {
     componentDidMount() {
 
 
-
         socket.on("giveGoodRoles" ,function() {
             document.getElementById("roles").innerHTML = "YOU ARE GOOD";
             console.log("You are good");
