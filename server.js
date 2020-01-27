@@ -164,12 +164,15 @@ io.sockets.on("connection", function(socket) {
             }
         }
 
+        // get a random player to become party leader
+        let firstPartyLeader = Math.floor((Math.random() * numPlayers));
+        io.to(rolePlayers[firstPartyLeader].playerSocket.id).emit("getPartyLeader");
+
         io.to("evil").emit("giveEvilRoles", evilPlayers);
         io.to("good").emit("giveGoodRoles", "");
 
-        let firstPartyLeader = Math.floor((Math.random() * numPlayers));
-        io.to(rolePlayers[firstPartyLeader].playerSocket).emit("getPartyLeader");
-
+        
+        
 
     });
 

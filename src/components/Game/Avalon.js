@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import io from 'socket.io-client'
 import {socket} from "../Lobby"
-
+import Popup from "reactjs-popup"
+var CheckBoxList = require('react-checkbox-list');
   
 
 export default class Avalon extends Component {
@@ -16,10 +17,13 @@ export default class Avalon extends Component {
             
         };
         
- 
     }
 
+
     componentDidMount() {
+        
+
+        document.getElementById("selectOnQuest").hidden = true;
 
 
         socket.on("giveGoodRoles" ,function() {
@@ -41,10 +45,12 @@ export default class Avalon extends Component {
         });
 
         socket.on("getPartyLeader", function() {
-            console.log("You are party leader!");
+            console.log("You are the party leader!");
+            // party leader button to open prompt to select members for the quest
+            document.getElementById("selectOnQuest").hidden = false;
+
+
         });
-
-
 
         socket.emit("players");
         socket.on("givePlayers", function(playerList) {
@@ -68,7 +74,18 @@ export default class Avalon extends Component {
                 <h1 id = "roles">your role is ...</h1>
                 <p>Players</p>
                 <ol id = "listPlayers">{}</ol>
+
+                <Popup modal trigger={
+                <button id="selectOnQuest">Select Members</button>}>
+                    Select members to go on the Quest!
+                    <p id="numberToSelect"></p>
+                    <CheckBoxList ref="chkboxList" defaultData={data} onChange={this.handleCheckboxListChange} />
+                </Popup>
+
             </div>
+            
+
+
         )
     }
 }

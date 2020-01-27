@@ -56,8 +56,7 @@ class Lobby extends Component {
                 gameScreen: true
              }));
              
-
-
+            
         });
 
     }
