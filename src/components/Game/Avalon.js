@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import io from 'socket.io-client'
 import {socket} from "../Lobby"
 import Popup from "reactjs-popup"
-var CheckBoxList = require('react-checkbox-list');
-  
+import Checkbox from './Checkbox'
+
 
 export default class Avalon extends Component {
+  
     
     
     constructor(props) {
@@ -14,13 +15,15 @@ export default class Avalon extends Component {
         this.state = {
             players: this.props.list,
             globalTurnCounter: 0,
+            checked: false
             
         };
         
     }
-
+    
 
     componentDidMount() {
+        let nameList;
         
 
         document.getElementById("selectOnQuest").hidden = true;
@@ -48,24 +51,25 @@ export default class Avalon extends Component {
             console.log("You are the party leader!");
             // party leader button to open prompt to select members for the quest
             document.getElementById("selectOnQuest").hidden = false;
-
-
+    
         });
 
         socket.emit("players");
         socket.on("givePlayers", function(playerList) {
-            let nameList = "";
             document.getElementById("listPlayers").innerHTML = "";
 
             for (var I = 0; I < playerList.length; I++) {
                 nameList += "<li>" + playerList[I] + "</li>";
             }
             document.getElementById("listPlayers").innerHTML = nameList;
+           // playerNames = playerList;
         
         });
-
-        
-
+    
+    }
+    
+    handleCheckboxChange = event => {
+        this.setState({checked: event.target.checked })
     }
 
     render() {
@@ -79,7 +83,72 @@ export default class Avalon extends Component {
                 <button id="selectOnQuest">Select Members</button>}>
                     Select members to go on the Quest!
                     <p id="numberToSelect"></p>
-                    <CheckBoxList ref="chkboxList" defaultData={data} onChange={this.handleCheckboxListChange} />
+
+                    <label>
+
+                        <Checkbox id="player1"
+                            checked={this.state.checked}
+                            onChange={this.handleCheckboxChange}
+                            ></Checkbox>
+                        <span id="player1Name">test</span>
+
+                        <Checkbox id="player2"
+                            checked={this.state.checked}
+                            onChange={this.handleCheckboxChange}
+                            ></Checkbox>
+                        <span id="player2Name">test2</span>
+
+                        <Checkbox id="player3"
+                            checked={this.state.checked}
+                            onChange={this.handleCheckboxChange}
+                            ></Checkbox>
+                        <span id="player3Name">test3</span>
+
+                        <Checkbox id="player4"
+                            checked={this.state.checked}
+                            onChange={this.handleCheckboxChange}
+                            ></Checkbox>
+                        <span id="player4Name">test4</span>
+
+                        <Checkbox id="player5"
+                            checked={this.state.checked}
+                            onChange={this.handleCheckboxChange}
+                            ></Checkbox>
+                        <span id="player5Name">test5</span>
+
+                        <Checkbox id="player6"
+                            checked={this.state.checked}
+                            onChange={this.handleCheckboxChange}
+                            ></Checkbox>
+                        <span id="player6Name">test6</span>
+
+                        <Checkbox id="player7"
+                            checked={this.state.checked}
+                            onChange={this.handleCheckboxChange}
+                            ></Checkbox>
+                        <span id="player7Name">test7</span>
+
+                        <Checkbox id="player8"
+                            checked={this.state.checked}
+                            onChange={this.handleCheckboxChange}
+                            ></Checkbox>
+                        <span id="player8Name">test8</span>
+
+                        <Checkbox id="player9"
+                            checked={this.state.checked}
+                            onChange={this.handleCheckboxChange}
+                            ></Checkbox>
+                        <span id="player9Name">test9</span>
+
+                        <Checkbox id="player10"
+                            checked={this.state.checked}
+                            onChange={this.handleCheckboxChange}
+                            ></Checkbox>
+                        <span id="player10Name">test10</span>
+
+                    </label>
+
+                    
                 </Popup>
 
             </div>

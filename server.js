@@ -1,4 +1,4 @@
-//const express = require('express');
+////const express = require('express');
 //const app = express();
 //const server = require('http').Server(app);
 //const io = require('socket.io').listen(server);
@@ -170,7 +170,6 @@ io.sockets.on("connection", function(socket) {
 
         io.to("evil").emit("giveEvilRoles", evilPlayers);
         io.to("good").emit("giveGoodRoles", "");
-
         
         
 
